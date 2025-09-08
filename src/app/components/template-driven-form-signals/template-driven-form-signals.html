@@ -1,0 +1,213 @@
+<div class="form-container">
+  <header class="form-header">
+    <a routerLink="/home" class="back-link">← Back to Forms</a>
+    <h1>Template-Driven Forms with Signals</h1>
+    <p>Combining template-driven forms with signal-based reactive state management</p>
+  </header>
+
+  <div class="form-wrapper">
+    <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)" class="user-form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="firstName" class="form-label">First Name</label>
+          <input
+            id="firstName"
+            type="text"
+            name="firstName"
+            [ngModel]="userData().firstName"
+            (ngModelChange)="updateFirstName($event)"
+            #firstName="ngModel"
+            class="form-input"
+            [class.form-input--error]="firstNameError()"
+            placeholder="Enter your first name"
+          />
+          @if (firstNameError()) {
+            <div class="form-error">{{ firstNameError() }}</div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input
+            id="lastName"
+            type="text"
+            name="lastName"
+            [ngModel]="userData().lastName"
+            (ngModelChange)="updateLastName($event)"
+            #lastName="ngModel"
+            class="form-input"
+            [class.form-input--error]="lastNameError()"
+            placeholder="Enter your last name"
+          />
+          @if (lastNameError()) {
+            <div class="form-error">{{ lastNameError() }}</div>
+          }
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="form-label">Email Address</label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          [ngModel]="userData().email"
+          (ngModelChange)="updateEmail($event)"
+          #email="ngModel"
+          class="form-input"
+          [class.form-input--error]="emailError()"
+          placeholder="Enter your email address"
+        />
+        @if (emailError()) {
+          <div class="form-error">{{ emailError() }}</div>
+        }
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="age" class="form-label">Age</label>
+          <input
+            id="age"
+            type="number"
+            name="age"
+            [ngModel]="userData().age"
+            (ngModelChange)="updateAge($event)"
+            #age="ngModel"
+            class="form-input"
+            [class.form-input--error]="ageError()"
+            placeholder="Enter your age"
+            min="18"
+            max="120"
+          />
+          @if (ageError()) {
+            <div class="form-error">{{ ageError() }}</div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="country" class="form-label">Country</label>
+          <select
+            id="country"
+            name="country"
+            [ngModel]="userData().country"
+            (ngModelChange)="updateCountry($event)"
+            #country="ngModel"
+            class="form-input form-select"
+            [class.form-input--error]="countryError()"
+          >
+            <option value="">Select a country</option>
+            @for (countryOption of countries; track countryOption) {
+              <option [value]="countryOption">{{ countryOption }}</option>
+            }
+          </select>
+          @if (countryError()) {
+            <div class="form-error">{{ countryError() }}</div>
+          }
+        </div>
+      </div>
+
+      <div class="form-group form-group--checkbox">
+        <label class="checkbox-label">
+          <input
+            type="checkbox"
+            name="agreeToTerms"
+            [ngModel]="userData().agreeToTerms"
+            (ngModelChange)="updateTerms($event)"
+            #agreeToTerms="ngModel"
+            class="checkbox-input"
+          />
+          <span class="checkbox-custom"></span>
+          <span class="checkbox-text">I agree to the terms and conditions</span>
+        </label>
+        @if (termsError()) {
+          <div class="form-error">{{ termsError() }}</div>
+        }
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn btn--primary"
+          [class.btn--disabled]="!isFormValid()"
+          [disabled]="!isFormValid()"
+        >
+          Submit Form
+        </button>
+        <button
+          type="button"
+          class="btn btn--secondary"
+          (click)="onReset(userForm)"
+        >
+          Reset Form
+        </button>
+      </div>
+    </form>
+
+    @if (formData()) {
+      <div class="form-result">
+        <h3>Form Data (Template-Driven + Signals)</h3>
+        <pre>{{ formData() | json }}</pre>
+      </div>
+    }
+  </div>
+
+  <div class="form-status">
+    <h3>Real-time Signal Status</h3>
+    <div class="status-grid">
+      <div class="status-item">
+        <span class="status-label">First Name Valid:</span>
+        <span class="status-value" [class.status-value--valid]="isFirstNameValid()" [class.status-value--invalid]="!isFirstNameValid()">
+          {{ isFirstNameValid() ? '✓' : '✗' }}
+        </span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Last Name Valid:</span>
+        <span class="status-value" [class.status-value--valid]="isLastNameValid()" [class.status-value--invalid]="!isLastNameValid()">
+          {{ isLastNameValid() ? '✓' : '✗' }}
+        </span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Email Valid:</span>
+        <span class="status-value" [class.status-value--valid]="isEmailValid()" [class.status-value--invalid]="!isEmailValid()">
+          {{ isEmailValid() ? '✓' : '✗' }}
+        </span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Age Valid:</span>
+        <span class="status-value" [class.status-value--valid]="isAgeValid()" [class.status-value--invalid]="!isAgeValid()">
+          {{ isAgeValid() ? '✓' : '✗' }}
+        </span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Country Valid:</span>
+        <span class="status-value" [class.status-value--valid]="isCountryValid()" [class.status-value--invalid]="!isCountryValid()">
+          {{ isCountryValid() ? '✓' : '✗' }}
+        </span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Terms Agreed:</span>
+        <span class="status-value" [class.status-value--valid]="isTermsValid()" [class.status-value--invalid]="!isTermsValid()">
+          {{ isTermsValid() ? '✓' : '✗' }}
+        </span>
+      </div>
+      <div class="status-item status-item--overall">
+        <span class="status-label">Overall Form Valid:</span>
+        <span class="status-value status-value--large" [class.status-value--valid]="isFormValid()" [class.status-value--invalid]="!isFormValid()">
+          {{ isFormValid() ? '✓ VALID' : '✗ INVALID' }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="implementation-info">
+    <h3>Implementation Details</h3>
+    <ul>
+      <li><strong>Template-Driven:</strong> Using ngModel for form binding</li>
+      <li><strong>Signals Integration:</strong> Signal-based state management and validation</li>
+      <li><strong>Real-time Validation:</strong> Computed signals for instant feedback</li>
+      <li><strong>Effects:</strong> Side effects for logging form changes</li>
+      <li><strong>Manual Updates:</strong> Custom methods for updating signal state</li>
+      <li><strong>Best of Both:</strong> Combining template simplicity with signals power</li>
+    </ul>
+  </div>
+</div>

@@ -27,6 +27,12 @@ export class FormSelector {
       description: 'Two-way data binding forms using ngModel and template reference variables',
       route: '/template-driven',
       color: 'accent'
+    },
+    {
+      title: 'Template-Driven with Signals',
+      description: 'Template-driven forms enhanced with signals for reactive state management',
+      route: '/template-driven-signals',
+      color: 'special'
     }
   ];
 }

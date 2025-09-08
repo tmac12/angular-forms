@@ -17,5 +17,9 @@ export const routes: Routes = [
   { 
     path: 'template-driven', 
     loadComponent: () => import('./components/template-driven-form/template-driven-form').then(m => m.TemplateDrivenForm) 
+  },
+  { 
+    path: 'template-driven-signals', 
+    loadComponent: () => import('./components/template-driven-form-signals/template-driven-form-signals').then(m => m.TemplateDrivenFormSignals) 
   }
 ];
