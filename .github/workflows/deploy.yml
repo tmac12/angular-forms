@@ -39,7 +39,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        path: ./dist/angular-forms
+        path: ./dist/angular-forms/browser
 
   deploy:
     environment:
