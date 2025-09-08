@@ -6,11 +6,11 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?style=for-the-badge&logo=typescript)
 ![Signals](https://img.shields.io/badge/Signals-✨-brightgreen?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
-![Build](https://img.shields.io/github/actions/workflow/status/YOUR_USERNAME/angular-forms/deploy.yml?style=for-the-badge)
+![Build](https://img.shields.io/github/actions/workflow/status/tmac12/angular-forms/deploy.yml?style=for-the-badge)
 
 **A comprehensive showcase of all Angular form implementation approaches**
 
-[🚀 Live Demo](https://YOUR_USERNAME.github.io/angular-forms/) • [📖 Documentation](#documentation) • [🛠️ Setup](#getting-started)
+[🚀 Live Demo](https://tmac12.github.io/angular-forms/) • [📖 Documentation](#documentation) • [🛠️ Setup](#getting-started)
 
 ---
 
@@ -150,7 +150,7 @@ Each implementation includes:
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/angular-forms.git
+git clone https://github.com/tmac12/angular-forms.git
 
 # Navigate to project directory
 cd angular-forms
@@ -238,7 +238,7 @@ The project includes automated deployment to GitHub Pages via GitHub Actions:
 1. **Push to main** branch triggers deployment
 2. **Build process** optimizes for production
 3. **Deploy** to GitHub Pages automatically
-4. **Live site** available at `https://YOUR_USERNAME.github.io/angular-forms/`
+4. **Live site** available at `https://tmac12.github.io/angular-forms/`
 
 ### **Manual Deployment**
 
@@ -291,6 +291,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Built with ❤️ using Angular 20 and modern web technologies**
 
-[⭐ Star this repo](https://github.com/YOUR_USERNAME/angular-forms) • [🐛 Report Bug](https://github.com/YOUR_USERNAME/angular-forms/issues) • [💡 Request Feature](https://github.com/YOUR_USERNAME/angular-forms/issues)
+[⭐ Star this repo](https://github.com/tmac12/angular-forms) • [🐛 Report Bug](https://github.com/tmac12/angular-forms/issues) • [💡 Request Feature](https://github.com/tmac12/angular-forms/issues)
 
 </div>
