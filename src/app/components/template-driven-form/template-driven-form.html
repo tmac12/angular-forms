@@ -1,0 +1,167 @@
+<div class="form-container">
+  <header class="form-header">
+    <a routerLink="/home" class="back-link">← Back to Forms</a>
+    <h1>Template-Driven Forms</h1>
+    <p>Two-way data binding using ngModel and template reference variables</p>
+  </header>
+
+  <div class="form-wrapper">
+    <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)" class="user-form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="firstName" class="form-label">First Name</label>
+          <input
+            id="firstName"
+            type="text"
+            name="firstName"
+            [(ngModel)]="userData.firstName"
+            #firstName="ngModel"
+            required
+            minlength="2"
+            class="form-input"
+            [class.form-input--error]="getFieldError(firstName, 'firstName')"
+            placeholder="Enter your first name"
+          />
+          @if (getFieldError(firstName, 'firstName')) {
+            <div class="form-error">{{ getFieldError(firstName, 'firstName') }}</div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input
+            id="lastName"
+            type="text"
+            name="lastName"
+            [(ngModel)]="userData.lastName"
+            #lastName="ngModel"
+            required
+            minlength="2"
+            class="form-input"
+            [class.form-input--error]="getFieldError(lastName, 'lastName')"
+            placeholder="Enter your last name"
+          />
+          @if (getFieldError(lastName, 'lastName')) {
+            <div class="form-error">{{ getFieldError(lastName, 'lastName') }}</div>
+          }
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="form-label">Email Address</label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          [(ngModel)]="userData.email"
+          #email="ngModel"
+          required
+          email
+          class="form-input"
+          [class.form-input--error]="getFieldError(email, 'email')"
+          placeholder="Enter your email address"
+        />
+        @if (getFieldError(email, 'email')) {
+          <div class="form-error">{{ getFieldError(email, 'email') }}</div>
+        }
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="age" class="form-label">Age</label>
+          <input
+            id="age"
+            type="number"
+            name="age"
+            [(ngModel)]="userData.age"
+            #age="ngModel"
+            required
+            min="18"
+            max="120"
+            class="form-input"
+            [class.form-input--error]="getFieldError(age, 'age')"
+            placeholder="Enter your age"
+          />
+          @if (getFieldError(age, 'age')) {
+            <div class="form-error">{{ getFieldError(age, 'age') }}</div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="country" class="form-label">Country</label>
+          <select
+            id="country"
+            name="country"
+            [(ngModel)]="userData.country"
+            #country="ngModel"
+            required
+            class="form-input form-select"
+            [class.form-input--error]="getFieldError(country, 'country')"
+          >
+            <option value="">Select a country</option>
+            @for (countryOption of countries; track countryOption) {
+              <option [value]="countryOption">{{ countryOption }}</option>
+            }
+          </select>
+          @if (getFieldError(country, 'country')) {
+            <div class="form-error">{{ getFieldError(country, 'country') }}</div>
+          }
+        </div>
+      </div>
+
+      <div class="form-group form-group--checkbox">
+        <label class="checkbox-label">
+          <input
+            type="checkbox"
+            name="agreeToTerms"
+            [(ngModel)]="userData.agreeToTerms"
+            #agreeToTerms="ngModel"
+            required
+            class="checkbox-input"
+          />
+          <span class="checkbox-custom"></span>
+          <span class="checkbox-text">I agree to the terms and conditions</span>
+        </label>
+        @if (getFieldError(agreeToTerms, 'agreeToTerms')) {
+          <div class="form-error">{{ getFieldError(agreeToTerms, 'agreeToTerms') }}</div>
+        }
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn btn--primary"
+          [class.btn--disabled]="!userForm.form.valid"
+          [disabled]="!userForm.form.valid"
+        >
+          Submit Form
+        </button>
+        <button
+          type="button"
+          class="btn btn--secondary"
+          (click)="onReset(userForm)"
+        >
+          Reset Form
+        </button>
+      </div>
+    </form>
+
+    @if (formData) {
+      <div class="form-result">
+        <h3>Form Data (Template-Driven)</h3>
+        <pre>{{ formData | json }}</pre>
+      </div>
+    }
+  </div>
+
+  <div class="implementation-info">
+    <h3>Implementation Details</h3>
+    <ul>
+      <li><strong>Template-Driven:</strong> Using ngModel and template reference variables</li>
+      <li><strong>Two-Way Binding:</strong> Direct binding to component properties</li>
+      <li><strong>Validation:</strong> HTML5 validation attributes (required, email, min, max)</li>
+      <li><strong>Form State:</strong> Accessed through template reference variables</li>
+      <li><strong>Simplicity:</strong> Less code, perfect for simple forms</li>
+    </ul>
+  </div>
+</div>

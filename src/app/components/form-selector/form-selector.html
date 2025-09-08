@@ -1,0 +1,26 @@
+<div class="container">
+  <header class="header">
+    <h1>Angular Forms Showcase</h1>
+    <p>Explore different form implementation approaches in Angular</p>
+  </header>
+
+  <div class="form-options">
+    @for (option of formOptions; track option.route) {
+      <a [routerLink]="option.route" class="form-card" [class]="'form-card--' + option.color">
+        <div class="form-card__content">
+          <h2 class="form-card__title">{{ option.title }}</h2>
+          <p class="form-card__description">{{ option.description }}</p>
+          <div class="form-card__arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8.59,16.59L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.59Z"/>
+            </svg>
+          </div>
+        </div>
+      </a>
+    }
+  </div>
+
+  <footer class="footer">
+    <p>Each implementation demonstrates the same form with validation using different Angular approaches</p>
+  </footer>
+</div>

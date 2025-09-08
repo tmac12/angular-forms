@@ -1,0 +1,146 @@
+<div class="form-container">
+  <header class="form-header">
+    <a routerLink="/home" class="back-link">← Back to Forms</a>
+    <h1>Reactive Forms with Signals</h1>
+    <p>Using FormControl/FormGroup with signal-based computed validation messages</p>
+  </header>
+
+  <div class="form-wrapper">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="user-form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="firstName" class="form-label">First Name</label>
+          <input
+            id="firstName"
+            type="text"
+            formControlName="firstName"
+            class="form-input"
+            [class.form-input--error]="firstNameError()"
+            placeholder="Enter your first name"
+          />
+          @if (firstNameError()) {
+            <div class="form-error">{{ firstNameError() }}</div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input
+            id="lastName"
+            type="text"
+            formControlName="lastName"
+            class="form-input"
+            [class.form-input--error]="lastNameError()"
+            placeholder="Enter your last name"
+          />
+          @if (lastNameError()) {
+            <div class="form-error">{{ lastNameError() }}</div>
+          }
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="form-label">Email Address</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          class="form-input"
+          [class.form-input--error]="emailError()"
+          placeholder="Enter your email address"
+        />
+        @if (emailError()) {
+          <div class="form-error">{{ emailError() }}</div>
+        }
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="age" class="form-label">Age</label>
+          <input
+            id="age"
+            type="number"
+            formControlName="age"
+            class="form-input"
+            [class.form-input--error]="ageError()"
+            placeholder="Enter your age"
+            min="18"
+            max="120"
+          />
+          @if (ageError()) {
+            <div class="form-error">{{ ageError() }}</div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="country" class="form-label">Country</label>
+          <select
+            id="country"
+            formControlName="country"
+            class="form-input form-select"
+            [class.form-input--error]="countryError()"
+          >
+            <option value="">Select a country</option>
+            @for (country of countries; track country) {
+              <option [value]="country">{{ country }}</option>
+            }
+          </select>
+          @if (countryError()) {
+            <div class="form-error">{{ countryError() }}</div>
+          }
+        </div>
+      </div>
+
+      <div class="form-group form-group--checkbox">
+        <label class="checkbox-label">
+          <input
+            type="checkbox"
+            formControlName="agreeToTerms"
+            class="checkbox-input"
+          />
+          <span class="checkbox-custom"></span>
+          <span class="checkbox-text">I agree to the terms and conditions</span>
+        </label>
+        @if (termsError()) {
+          <div class="form-error">{{ termsError() }}</div>
+        }
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn btn--primary"
+          [class.btn--disabled]="!isFormValid()"
+          [disabled]="!isFormValid()"
+        >
+          Submit Form
+        </button>
+        <button
+          type="button"
+          class="btn btn--secondary"
+          (click)="onReset()"
+        >
+          Reset Form
+        </button>
+      </div>
+    </form>
+
+    @if (formData()) {
+      <div class="form-result">
+        <h3>Form Data (with Signals)</h3>
+        <pre>{{ formData() | json }}</pre>
+      </div>
+    }
+  </div>
+
+  <div class="implementation-info">
+    <h3>Implementation Details</h3>
+    <ul>
+      <li><strong>Reactive Forms:</strong> Using FormControl and FormGroup</li>
+      <li><strong>Signals:</strong> Computed validation messages and form state</li>
+      <li><strong>Type Safety:</strong> Typed FormGroup with interface</li>
+      <li><strong>Validation:</strong> Built-in and custom validators</li>
+      <li><strong>Real-time:</strong> Signal-based reactive validation messages</li>
+    </ul>
+  </div>
+</div>

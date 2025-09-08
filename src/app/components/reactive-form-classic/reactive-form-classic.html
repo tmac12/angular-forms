@@ -1,0 +1,146 @@
+<div class="form-container">
+  <header class="form-header">
+    <a routerLink="/home" class="back-link">← Back to Forms</a>
+    <h1>Reactive Forms (Classic)</h1>
+    <p>Traditional reactive forms using FormControl/FormGroup without signals</p>
+  </header>
+
+  <div class="form-wrapper">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="user-form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="firstName" class="form-label">First Name</label>
+          <input
+            id="firstName"
+            type="text"
+            formControlName="firstName"
+            class="form-input"
+            [class.form-input--error]="getFirstNameError()"
+            placeholder="Enter your first name"
+          />
+          @if (getFirstNameError()) {
+            <div class="form-error">{{ getFirstNameError() }}</div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input
+            id="lastName"
+            type="text"
+            formControlName="lastName"
+            class="form-input"
+            [class.form-input--error]="getLastNameError()"
+            placeholder="Enter your last name"
+          />
+          @if (getLastNameError()) {
+            <div class="form-error">{{ getLastNameError() }}</div>
+          }
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="form-label">Email Address</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          class="form-input"
+          [class.form-input--error]="getEmailError()"
+          placeholder="Enter your email address"
+        />
+        @if (getEmailError()) {
+          <div class="form-error">{{ getEmailError() }}</div>
+        }
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="age" class="form-label">Age</label>
+          <input
+            id="age"
+            type="number"
+            formControlName="age"
+            class="form-input"
+            [class.form-input--error]="getAgeError()"
+            placeholder="Enter your age"
+            min="18"
+            max="120"
+          />
+          @if (getAgeError()) {
+            <div class="form-error">{{ getAgeError() }}</div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="country" class="form-label">Country</label>
+          <select
+            id="country"
+            formControlName="country"
+            class="form-input form-select"
+            [class.form-input--error]="getCountryError()"
+          >
+            <option value="">Select a country</option>
+            @for (country of countries; track country) {
+              <option [value]="country">{{ country }}</option>
+            }
+          </select>
+          @if (getCountryError()) {
+            <div class="form-error">{{ getCountryError() }}</div>
+          }
+        </div>
+      </div>
+
+      <div class="form-group form-group--checkbox">
+        <label class="checkbox-label">
+          <input
+            type="checkbox"
+            formControlName="agreeToTerms"
+            class="checkbox-input"
+          />
+          <span class="checkbox-custom"></span>
+          <span class="checkbox-text">I agree to the terms and conditions</span>
+        </label>
+        @if (getTermsError()) {
+          <div class="form-error">{{ getTermsError() }}</div>
+        }
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn btn--primary"
+          [class.btn--disabled]="!isFormValid"
+          [disabled]="!isFormValid"
+        >
+          Submit Form
+        </button>
+        <button
+          type="button"
+          class="btn btn--secondary"
+          (click)="onReset()"
+        >
+          Reset Form
+        </button>
+      </div>
+    </form>
+
+    @if (formData) {
+      <div class="form-result">
+        <h3>Form Data (Classic Approach)</h3>
+        <pre>{{ formData | json }}</pre>
+      </div>
+    }
+  </div>
+
+  <div class="implementation-info">
+    <h3>Implementation Details</h3>
+    <ul>
+      <li><strong>Reactive Forms:</strong> Using FormControl and FormGroup</li>
+      <li><strong>Classic Approach:</strong> Traditional methods and property getters</li>
+      <li><strong>Type Safety:</strong> Typed FormGroup with interface</li>
+      <li><strong>Validation:</strong> Built-in and custom validators</li>
+      <li><strong>State Management:</strong> Component properties and methods</li>
+    </ul>
+  </div>
+</div>
