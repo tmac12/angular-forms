@@ -47,7 +47,7 @@ export class FormSelector {
       case 'primary':
         return `${baseClasses} bg-gradient-to-br ${theme.gradients.primary}`;
       case 'secondary':
-        return `${baseClasses} bg-gradient-to-br ${theme.gradients.secondary}`;
+        return `${baseClasses} bg-gradient-to-br from-${theme.colors.secondary} via-${theme.colors.accent} to-${theme.colors.primary}`;
       case 'accent':
         return `${baseClasses} bg-gradient-to-br ${theme.gradients.accent}`;
       case 'special':
