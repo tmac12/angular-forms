@@ -1,7 +1,8 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { JsonPipe } from '@angular/common';
+import { ThemeService } from '../../services/theme.service';
 
 interface UserForm {
   firstName: FormControl<string>;
@@ -19,6 +20,8 @@ interface UserForm {
   imports: [ReactiveFormsModule, RouterLink, JsonPipe]
 })
 export class ReactiveFormClassic {
+  protected themeService = inject(ThemeService);
+
   protected readonly form = new FormGroup<UserForm>({
     firstName: new FormControl('', { 
       nonNullable: true, 

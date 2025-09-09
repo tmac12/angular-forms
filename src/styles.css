@@ -4,6 +4,10 @@
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 
+:root {
+  --primary-color: 79 70 229; /* indigo-600 default */
+}
+
 /* Only minimal custom styles needed for specific Angular form states */
 .ng-invalid.ng-touched .form-field:not(:focus) {
   @apply border-red-500;
@@ -27,11 +31,13 @@
 }
 
 .custom-checkbox input[type="checkbox"]:checked + .checkbox-box {
-  @apply bg-indigo-600 border-indigo-600;
+  background-color: rgb(var(--primary-color));
+  border-color: rgb(var(--primary-color));
 }
 
 .custom-checkbox input[type="checkbox"]:focus + .checkbox-box {
-  @apply ring-2 ring-indigo-600/20;
+  @apply ring-2;
+  ring-color: rgb(var(--primary-color) / 0.2);
 }
 
 .custom-checkbox input[type="checkbox"]:checked + .checkbox-box::after {

@@ -118,6 +118,7 @@ export class ThemeService {
     if (theme) {
       this.currentThemeId.set(themeId);
       localStorage.setItem('selectedTheme', themeId);
+      this.applyThemeStyles(theme);
     }
   }
 
@@ -126,6 +127,7 @@ export class ThemeService {
     if (savedTheme && this.themes.find(t => t.id === savedTheme)) {
       this.currentThemeId.set(savedTheme);
     }
+    this.applyThemeStyles(this.currentTheme());
   }
 
   // Helper methods to get theme-specific classes
@@ -152,5 +154,17 @@ export class ThemeService {
   getTextClass(type: 'primary' | 'secondary' = 'primary'): string {
     const theme = this.currentTheme();
     return type === 'primary' ? `text-${theme.colors.text}` : `text-${theme.colors.textSecondary}`;
+  }
+
+  private applyThemeStyles(theme: Theme): void {
+    // Map Tailwind color names to RGB values for CSS custom properties
+    const colorMap: Record<string, string> = {
+      'indigo-600': '79 70 229',
+      'orange-500': '249 115 22',
+      'cyan-500': '6 182 212'
+    };
+
+    const primaryColorRgb = colorMap[theme.colors.primary] || '79 70 229';
+    document.documentElement.style.setProperty('--primary-color', primaryColorRgb);
   }
 }
