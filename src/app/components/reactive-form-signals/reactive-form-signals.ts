@@ -15,7 +15,6 @@ interface UserForm {
 @Component({
   selector: 'app-reactive-form-signals',
   templateUrl: './reactive-form-signals.html',
-  styleUrl: './reactive-form-signals.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, RouterLink, JsonPipe]
 })

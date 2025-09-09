@@ -15,7 +15,6 @@ interface UserForm {
 @Component({
   selector: 'app-reactive-form-classic',
   templateUrl: './reactive-form-classic.html',
-  styleUrl: './reactive-form-classic.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, RouterLink, JsonPipe]
 })

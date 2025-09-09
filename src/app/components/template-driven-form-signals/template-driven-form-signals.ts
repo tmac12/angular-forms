@@ -15,7 +15,6 @@ interface UserData {
 @Component({
   selector: 'app-template-driven-form-signals',
   templateUrl: './template-driven-form-signals.html',
-  styleUrl: './template-driven-form-signals.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule, RouterLink, JsonPipe]
 })
