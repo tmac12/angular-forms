@@ -1,167 +1,303 @@
-<div class="form-container">
-  <header class="form-header">
-    <a routerLink="/home" class="back-link">← Back to Forms</a>
-    <h1>Template-Driven Forms</h1>
-    <p>Two-way data binding using ngModel and template reference variables</p>
-  </header>
-
-  <div class="form-wrapper">
-    <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)" class="user-form">
-      <div class="form-grid">
-        <div class="form-group">
-          <label for="firstName" class="form-label">First Name</label>
-          <input
-            id="firstName"
-            type="text"
-            name="firstName"
-            [(ngModel)]="userData.firstName"
-            #firstName="ngModel"
-            required
-            minlength="2"
-            class="form-input"
-            [class.form-input--error]="getFieldError(firstName, 'firstName')"
-            placeholder="Enter your first name"
-          />
-          @if (getFieldError(firstName, 'firstName')) {
-            <div class="form-error">{{ getFieldError(firstName, 'firstName') }}</div>
-          }
-        </div>
-
-        <div class="form-group">
-          <label for="lastName" class="form-label">Last Name</label>
-          <input
-            id="lastName"
-            type="text"
-            name="lastName"
-            [(ngModel)]="userData.lastName"
-            #lastName="ngModel"
-            required
-            minlength="2"
-            class="form-input"
-            [class.form-input--error]="getFieldError(lastName, 'lastName')"
-            placeholder="Enter your last name"
-          />
-          @if (getFieldError(lastName, 'lastName')) {
-            <div class="form-error">{{ getFieldError(lastName, 'lastName') }}</div>
-          }
-        </div>
+<div class="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50 py-8 px-4">
+  <div class="max-w-4xl mx-auto">
+    <!-- Header Section -->
+    <header class="mb-12">
+      <a routerLink="/home" class="inline-flex items-center gap-2 text-green-600 hover:text-green-800 font-medium mb-6 transition-colors group">
+        <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        Back to Forms
+      </a>
+      
+      <div class="mb-8">
+        <h1 class="text-4xl font-bold text-gray-900 mb-3 bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+          Template-Driven Forms
+        </h1>
+        <p class="text-xl text-gray-600 leading-relaxed">
+          Two-way data binding using ngModel and template reference variables
+        </p>
       </div>
+    </header>
 
-      <div class="form-group">
-        <label for="email" class="form-label">Email Address</label>
-        <input
-          id="email"
-          type="email"
-          name="email"
-          [(ngModel)]="userData.email"
-          #email="ngModel"
-          required
-          email
-          class="form-input"
-          [class.form-input--error]="getFieldError(email, 'email')"
-          placeholder="Enter your email address"
-        />
-        @if (getFieldError(email, 'email')) {
-          <div class="form-error">{{ getFieldError(email, 'email') }}</div>
-        }
-      </div>
+    <!-- Main Form Card -->
+    <div class="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 p-8 mb-8 relative overflow-hidden">
+      <!-- Decorative elements -->
+      <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full -translate-y-20 translate-x-20 opacity-50"></div>
+      <div class="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-emerald-100 to-green-100 rounded-full translate-y-16 -translate-x-16 opacity-30"></div>
+      
+      <div class="relative z-10">
+        <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+          <!-- Name Fields Row -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="space-y-2">
+              <label for="firstName" class="block text-sm font-semibold text-gray-700">
+                First Name
+              </label>
+              <input
+                id="firstName"
+                type="text"
+                name="firstName"
+                [(ngModel)]="userData.firstName"
+                #firstName="ngModel"
+                required
+                minlength="2"
+                class="form-field w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-base focus:border-green-500 focus:ring-2 focus:ring-green-100 transition-all duration-200 bg-gray-50 focus:bg-white"
+                [class.border-red-300]="getFieldError(firstName, 'firstName')"
+                [class.focus:border-red-500]="getFieldError(firstName, 'firstName')"
+                [class.focus:ring-red-100]="getFieldError(firstName, 'firstName')"
+                placeholder="Enter your first name"
+              />
+              @if (getFieldError(firstName, 'firstName')) {
+                <div class="flex items-center gap-2 text-red-500 text-sm mt-2">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                  </svg>
+                  {{ getFieldError(firstName, 'firstName') }}
+                </div>
+              }
+            </div>
 
-      <div class="form-grid">
-        <div class="form-group">
-          <label for="age" class="form-label">Age</label>
-          <input
-            id="age"
-            type="number"
-            name="age"
-            [(ngModel)]="userData.age"
-            #age="ngModel"
-            required
-            min="18"
-            max="120"
-            class="form-input"
-            [class.form-input--error]="getFieldError(age, 'age')"
-            placeholder="Enter your age"
-          />
-          @if (getFieldError(age, 'age')) {
-            <div class="form-error">{{ getFieldError(age, 'age') }}</div>
-          }
-        </div>
+            <div class="space-y-2">
+              <label for="lastName" class="block text-sm font-semibold text-gray-700">
+                Last Name
+              </label>
+              <input
+                id="lastName"
+                type="text"
+                name="lastName"
+                [(ngModel)]="userData.lastName"
+                #lastName="ngModel"
+                required
+                minlength="2"
+                class="form-field w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-base focus:border-green-500 focus:ring-2 focus:ring-green-100 transition-all duration-200 bg-gray-50 focus:bg-white"
+                [class.border-red-300]="getFieldError(lastName, 'lastName')"
+                [class.focus:border-red-500]="getFieldError(lastName, 'lastName')"
+                [class.focus:ring-red-100]="getFieldError(lastName, 'lastName')"
+                placeholder="Enter your last name"
+              />
+              @if (getFieldError(lastName, 'lastName')) {
+                <div class="flex items-center gap-2 text-red-500 text-sm mt-2">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                  </svg>
+                  {{ getFieldError(lastName, 'lastName') }}
+                </div>
+              }
+            </div>
+          </div>
 
-        <div class="form-group">
-          <label for="country" class="form-label">Country</label>
-          <select
-            id="country"
-            name="country"
-            [(ngModel)]="userData.country"
-            #country="ngModel"
-            required
-            class="form-input form-select"
-            [class.form-input--error]="getFieldError(country, 'country')"
-          >
-            <option value="">Select a country</option>
-            @for (countryOption of countries; track countryOption) {
-              <option [value]="countryOption">{{ countryOption }}</option>
+          <!-- Email Field -->
+          <div class="space-y-2 mb-6">
+            <label for="email" class="block text-sm font-semibold text-gray-700">
+              Email Address
+            </label>
+            <input
+              id="email"
+              type="email"
+              name="email"
+              [(ngModel)]="userData.email"
+              #email="ngModel"
+              required
+              email
+              class="form-field w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-base focus:border-green-500 focus:ring-2 focus:ring-green-100 transition-all duration-200 bg-gray-50 focus:bg-white"
+              [class.border-red-300]="getFieldError(email, 'email')"
+              [class.focus:border-red-500]="getFieldError(email, 'email')"
+              [class.focus:ring-red-100]="getFieldError(email, 'email')"
+              placeholder="Enter your email address"
+            />
+            @if (getFieldError(email, 'email')) {
+              <div class="flex items-center gap-2 text-red-500 text-sm mt-2">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                </svg>
+                {{ getFieldError(email, 'email') }}
+              </div>
             }
-          </select>
-          @if (getFieldError(country, 'country')) {
-            <div class="form-error">{{ getFieldError(country, 'country') }}</div>
-          }
-        </div>
-      </div>
+          </div>
 
-      <div class="form-group form-group--checkbox">
-        <label class="checkbox-label">
-          <input
-            type="checkbox"
-            name="agreeToTerms"
-            [(ngModel)]="userData.agreeToTerms"
-            #agreeToTerms="ngModel"
-            required
-            class="checkbox-input"
-          />
-          <span class="checkbox-custom"></span>
-          <span class="checkbox-text">I agree to the terms and conditions</span>
-        </label>
-        @if (getFieldError(agreeToTerms, 'agreeToTerms')) {
-          <div class="form-error">{{ getFieldError(agreeToTerms, 'agreeToTerms') }}</div>
-        }
-      </div>
+          <!-- Age and Country Row -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="space-y-2">
+              <label for="age" class="block text-sm font-semibold text-gray-700">
+                Age
+              </label>
+              <input
+                id="age"
+                type="number"
+                name="age"
+                [(ngModel)]="userData.age"
+                #age="ngModel"
+                required
+                min="18"
+                max="120"
+                class="form-field w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-base focus:border-green-500 focus:ring-2 focus:ring-green-100 transition-all duration-200 bg-gray-50 focus:bg-white"
+                [class.border-red-300]="getFieldError(age, 'age')"
+                [class.focus:border-red-500]="getFieldError(age, 'age')"
+                [class.focus:ring-red-100]="getFieldError(age, 'age')"
+                placeholder="Enter your age"
+              />
+              @if (getFieldError(age, 'age')) {
+                <div class="flex items-center gap-2 text-red-500 text-sm mt-2">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                  </svg>
+                  {{ getFieldError(age, 'age') }}
+                </div>
+              }
+            </div>
 
-      <div class="form-actions">
-        <button
-          type="submit"
-          class="btn btn--primary"
-          [class.btn--disabled]="!userForm.form.valid"
-          [disabled]="!userForm.form.valid"
-        >
-          Submit Form
-        </button>
-        <button
-          type="button"
-          class="btn btn--secondary"
-          (click)="onReset(userForm)"
-        >
-          Reset Form
-        </button>
-      </div>
-    </form>
+            <div class="space-y-2">
+              <label for="country" class="block text-sm font-semibold text-gray-700">
+                Country
+              </label>
+              <select
+                id="country"
+                name="country"
+                [(ngModel)]="userData.country"
+                #country="ngModel"
+                required
+                class="form-field w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-base focus:border-green-500 focus:ring-2 focus:ring-green-100 transition-all duration-200 bg-gray-50 focus:bg-white cursor-pointer"
+                [class.border-red-300]="getFieldError(country, 'country')"
+                [class.focus:border-red-500]="getFieldError(country, 'country')"
+                [class.focus:ring-red-100]="getFieldError(country, 'country')"
+              >
+                <option value="">Select a country</option>
+                @for (countryOption of countries; track countryOption) {
+                  <option [value]="countryOption">{{ countryOption }}</option>
+                }
+              </select>
+              @if (getFieldError(country, 'country')) {
+                <div class="flex items-center gap-2 text-red-500 text-sm mt-2">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                  </svg>
+                  {{ getFieldError(country, 'country') }}
+                </div>
+              }
+            </div>
+          </div>
 
+          <!-- Checkbox -->
+          <div class="mb-8">
+            <label class="custom-checkbox flex items-start gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                name="agreeToTerms"
+                [(ngModel)]="userData.agreeToTerms"
+                #agreeToTerms="ngModel"
+                required
+              />
+              <div class="checkbox-box mt-0.5"></div>
+              <span class="text-gray-700 leading-relaxed select-none">
+                I agree to the terms and conditions
+              </span>
+            </label>
+            @if (getFieldError(agreeToTerms, 'agreeToTerms')) {
+              <div class="flex items-center gap-2 text-red-500 text-sm mt-2 ml-8">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                </svg>
+                {{ getFieldError(agreeToTerms, 'agreeToTerms') }}
+              </div>
+            }
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <button
+              type="submit"
+              class="px-8 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-lg flex-1 sm:flex-initial"
+              [disabled]="!userForm.form.valid"
+            >
+              <span class="flex items-center justify-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                </svg>
+                Submit Form
+              </span>
+            </button>
+            <button
+              type="button"
+              class="px-8 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl border border-gray-300 transition-all duration-200 flex-1 sm:flex-initial"
+              (click)="onReset(userForm)"
+            >
+              Reset Form
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Form Result Display -->
     @if (formData) {
-      <div class="form-result">
-        <h3>Form Data (Template-Driven)</h3>
-        <pre>{{ formData | json }}</pre>
+      <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 mb-8 border border-green-200">
+        <h3 class="text-lg font-semibold text-green-800 mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          Form Data (Template-Driven)
+        </h3>
+        <pre class="bg-gray-900 text-green-400 p-4 rounded-xl overflow-x-auto text-sm font-mono">{{ formData | json }}</pre>
       </div>
     }
-  </div>
 
-  <div class="implementation-info">
-    <h3>Implementation Details</h3>
-    <ul>
-      <li><strong>Template-Driven:</strong> Using ngModel and template reference variables</li>
-      <li><strong>Two-Way Binding:</strong> Direct binding to component properties</li>
-      <li><strong>Validation:</strong> HTML5 validation attributes (required, email, min, max)</li>
-      <li><strong>Form State:</strong> Accessed through template reference variables</li>
-      <li><strong>Simplicity:</strong> Less code, perfect for simple forms</li>
-    </ul>
+    <!-- Implementation Details -->
+    <div class="bg-gradient-to-br from-green-600 via-emerald-600 to-green-700 text-white rounded-2xl p-8 relative overflow-hidden">
+      <!-- Decorative elements -->
+      <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
+      <div class="absolute bottom-0 left-0 w-24 h-24 bg-black/10 rounded-full translate-y-12 -translate-x-12"></div>
+      
+      <div class="relative z-10">
+        <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+          <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          Implementation Details
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <div class="w-2 h-2 bg-white rounded-full mt-2"></div>
+              <div>
+                <strong class="text-white block">Template-Driven:</strong>
+                <span class="text-white/90">Using ngModel and template reference variables</span>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-2 h-2 bg-white rounded-full mt-2"></div>
+              <div>
+                <strong class="text-white block">Two-Way Binding:</strong>
+                <span class="text-white/90">Direct binding to component properties</span>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-2 h-2 bg-white rounded-full mt-2"></div>
+              <div>
+                <strong class="text-white block">Validation:</strong>
+                <span class="text-white/90">HTML5 validation attributes (required, email, min, max)</span>
+              </div>
+            </div>
+          </div>
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <div class="w-2 h-2 bg-white rounded-full mt-2"></div>
+              <div>
+                <strong class="text-white block">Form State:</strong>
+                <span class="text-white/90">Accessed through template reference variables</span>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-2 h-2 bg-white rounded-full mt-2"></div>
+              <div>
+                <strong class="text-white block">Simplicity:</strong>
+                <span class="text-white/90">Less code, perfect for simple forms</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
