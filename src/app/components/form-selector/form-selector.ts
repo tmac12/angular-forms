@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-form-selector',
@@ -8,6 +9,9 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink]
 })
 export class FormSelector {
+  private themeService = inject(ThemeService);
+  
+  protected readonly currentTheme = this.themeService.currentTheme;
   protected readonly formOptions = [
     {
       title: 'Reactive Forms with Signals',
@@ -37,16 +41,17 @@ export class FormSelector {
 
   protected getCardClasses(color: string): string {
     const baseClasses = 'relative overflow-hidden rounded-2xl shadow-lg';
+    const theme = this.currentTheme();
     
     switch (color) {
       case 'primary':
-        return `${baseClasses} bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500`;
+        return `${baseClasses} bg-gradient-to-br ${theme.gradients.primary}`;
       case 'secondary':
-        return `${baseClasses} bg-gradient-to-br from-pink-500 via-rose-500 to-orange-500`;
+        return `${baseClasses} bg-gradient-to-br ${theme.gradients.secondary}`;
       case 'accent':
-        return `${baseClasses} bg-gradient-to-br from-cyan-500 via-blue-500 to-indigo-500`;
+        return `${baseClasses} bg-gradient-to-br ${theme.gradients.accent}`;
       case 'special':
-        return `${baseClasses} bg-gradient-to-br from-violet-500 via-purple-500 to-indigo-500`;
+        return `${baseClasses} bg-gradient-to-br from-${theme.colors.accent} via-${theme.colors.secondary} to-${theme.colors.primary}`;
       default:
         return `${baseClasses} bg-gradient-to-br from-gray-500 to-gray-700`;
     }
