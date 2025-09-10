@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, signal, HostListener } from '@angular/core';
 import { ThemeService } from '../../services/theme.service';
 
 @Component({
@@ -12,13 +12,25 @@ export class ThemeSelector {
 
   protected readonly availableThemes = this.themeService.availableThemes;
   protected readonly currentTheme = this.themeService.currentTheme;
+  protected readonly isDropdownOpen = signal(false);
 
   protected selectTheme(themeId: string): void {
     this.themeService.setTheme(themeId);
+    this.isDropdownOpen.set(false); // Close dropdown after selection
   }
 
   protected toggleDropdown(): void {
-    // This will be handled by CSS hover states
+    this.isDropdownOpen.set(!this.isDropdownOpen());
+  }
+
+  @HostListener('document:click', ['$event'])
+  protected onDocumentClick(event: Event): void {
+    const target = event.target as HTMLElement;
+    const themeSelector = target.closest('app-theme-selector');
+    
+    if (!themeSelector && this.isDropdownOpen()) {
+      this.isDropdownOpen.set(false);
+    }
   }
 
   protected getThemePreviewClass(themeId: string, colorType: 'primary' | 'secondary' | 'accent'): string {
