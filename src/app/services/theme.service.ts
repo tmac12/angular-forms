@@ -101,6 +101,30 @@ export class ThemeService {
         accent: 'from-orange-600 to-red-600',
         background: 'from-orange-50 to-red-50'
       }
+    },
+    {
+      id: 'cool-ocean',
+      name: 'Cool Ocean',
+      description: 'Refreshing blue-green ocean theme',
+      colors: {
+        primary: 'blue-500',
+        secondary: 'teal-500',
+        accent: 'cyan-400',
+        background: 'blue-50',
+        surface: 'white',
+        text: 'slate-900',
+        textSecondary: 'slate-600',
+        border: 'blue-200',
+        error: 'red-500',
+        success: 'teal-500',
+        warning: 'amber-500'
+      },
+      gradients: {
+        primary: 'from-blue-500 via-teal-500 to-cyan-500',
+        secondary: 'from-blue-50 via-white to-teal-50',
+        accent: 'from-blue-600 to-teal-600',
+        background: 'from-blue-50 to-teal-50'
+      }
     }
   ];
 
