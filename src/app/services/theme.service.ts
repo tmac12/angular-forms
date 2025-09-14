@@ -125,6 +125,30 @@ export class ThemeService {
         accent: 'from-blue-600 to-teal-600',
         background: 'from-blue-50 to-teal-50'
       }
+    },
+    {
+      id: 'neubrutalism',
+      name: 'Neubrutalism',
+      description: 'Bold, modern design with sharp contrasts',
+      colors: {
+        primary: 'black',
+        secondary: 'yellow-400',
+        accent: 'fuchsia-500',
+        background: 'white',
+        surface: 'white',
+        text: 'black',
+        textSecondary: 'gray-700',
+        border: 'black',
+        error: 'red-600',
+        success: 'green-600',
+        warning: 'orange-500'
+      },
+      gradients: {
+        primary: 'from-black via-gray-800 to-black',
+        secondary: 'from-yellow-400 via-yellow-300 to-yellow-400',
+        accent: 'from-fuchsia-500 via-pink-500 to-purple-500',
+        background: 'from-white via-gray-50 to-white'
+      }
     }
   ];
 
@@ -159,18 +183,56 @@ export class ThemeService {
 
   getCardClass(): string {
     const theme = this.currentTheme();
-    const surfaceClass = theme.id === 'modern-dark' ? `bg-${theme.colors.surface}` : `bg-${theme.colors.surface}/80 backdrop-blur-sm`;
-    return `${surfaceClass} rounded-3xl shadow-xl border border-${theme.colors.border} p-8`;
+    let surfaceClass = theme.id === 'modern-dark' ? `bg-${theme.colors.surface}` : `bg-${theme.colors.surface}/80 backdrop-blur-sm`;
+    let borderClass = `border border-${theme.colors.border}`;
+    let shadowClass = 'shadow-xl';
+    let roundedClass = 'rounded-3xl';
+    
+    // Neubrutalism specific styling
+    if (theme.id === 'neubrutalism') {
+      surfaceClass = `bg-${theme.colors.surface}`;
+      borderClass = `border-4 border-${theme.colors.border}`;
+      shadowClass = 'shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]';
+      roundedClass = 'rounded-none';
+    }
+    
+    return `${surfaceClass} ${roundedClass} ${shadowClass} ${borderClass} p-8`;
   }
 
   getPrimaryButtonClass(): string {
-    return `bg-gradient-to-r ${this.currentTheme().gradients.accent} text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200`;
+    const theme = this.currentTheme();
+    let baseClass = `bg-gradient-to-r ${theme.gradients.accent} text-white font-semibold`;
+    let roundedClass = 'rounded-xl';
+    let shadowClass = 'shadow-lg hover:shadow-xl';
+    let hoverClass = 'transform hover:-translate-y-0.5';
+    
+    // Neubrutalism specific styling
+    if (theme.id === 'neubrutalism') {
+      baseClass = `bg-${theme.colors.secondary} text-${theme.colors.text} font-black border-4 border-${theme.colors.border}`;
+      roundedClass = 'rounded-none';
+      shadowClass = 'shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]';
+      hoverClass = 'transform hover:-translate-x-1 hover:-translate-y-1';
+    }
+    
+    return `${baseClass} ${roundedClass} ${shadowClass} ${hoverClass} transition-all duration-200`;
   }
 
   getInputClass(): string {
     const theme = this.currentTheme();
-    const bgClass = theme.id === 'modern-dark' ? `bg-${theme.colors.surface}` : 'bg-gray-50 focus:bg-white';
-    return `form-field w-full px-4 py-3 border-2 border-${theme.colors.border} rounded-xl text-base focus:border-${theme.colors.primary} focus:ring-2 focus:ring-${theme.colors.primary}/20 transition-all duration-200 ${bgClass} text-${theme.colors.text}`;
+    let bgClass = theme.id === 'modern-dark' ? `bg-${theme.colors.surface}` : 'bg-gray-50 focus:bg-white';
+    let borderClass = `border-2 border-${theme.colors.border}`;
+    let roundedClass = 'rounded-xl';
+    let focusClass = `focus:border-${theme.colors.primary} focus:ring-2 focus:ring-${theme.colors.primary}/20`;
+    
+    // Neubrutalism specific styling
+    if (theme.id === 'neubrutalism') {
+      bgClass = `bg-${theme.colors.surface}`;
+      borderClass = `border-4 border-${theme.colors.border}`;
+      roundedClass = 'rounded-none';
+      focusClass = `focus:border-${theme.colors.accent} focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]`;
+    }
+    
+    return `form-field w-full px-4 py-3 ${borderClass} ${roundedClass} text-base ${focusClass} transition-all duration-200 ${bgClass} text-${theme.colors.text}`;
   }
 
   getTextClass(type: 'primary' | 'secondary' = 'primary'): string {
